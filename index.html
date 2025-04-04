@@ -3,580 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genius AI - Your Intelligent Assistant</title>
+    <title>Modern Chat Interface</title>
     <style>
-        /* Base Styles & Variables */
+        /* Base Styles */
         :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #f72585;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-            --shadow: 0 10px 30px rgba(0,0,0,0.1);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --primary-color: #1d7efd;
+            --secondary-color: #8f6fff;
+            --user-bubble: #e3f2fd;
+            --bot-bubble: #f5f5f5;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--light);
-            color: var(--dark);
-            overflow-x: hidden;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Navigation */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 5%;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: var(--transition);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            padding: 0.8rem 2rem;
-            background: var(--gradient);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 20px rgba(67, 97, 238, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(67, 97, 238, 0.4);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 5%;
-            margin-top: -80px;
+        .container {
+            padding: 2rem 0 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            min-height: 90vh;
             position: relative;
             overflow: hidden;
         }
 
-        .hero-content {
-            max-width: 600px;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-            animation: fadeInUp 1s ease 0.2s forwards;
-            opacity: 0;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            animation: fadeInUp 1s ease 0.4s forwards;
-            opacity: 0;
-        }
-
-        .secondary-button {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .hero-image {
-            position: absolute;
-            right: 5%;
-            width: 50%;
-            max-width: 700px;
-            animation: float 6s ease-in-out infinite;
-            filter: drop-shadow(0 20px 30px rgba(67, 97, 238, 0.2));
-        }
-
-        /* Stats Section */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            padding: 4rem 5%;
-            background: white;
+        /* Header Styles */
+        .app-header {
             text-align: center;
+            padding: 2rem 0;
+            animation: fadeInDown 0.8s ease;
         }
 
-        .stat-item {
-            animation: fadeIn 1s ease forwards;
-            opacity: 0;
-        }
-
-        .stat-number {
+        .heading {
             font-size: 3rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            font-weight: 700;
         }
 
-        .stat-label {
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 6rem 5%;
-            background: linear-gradient(to bottom, white 0%, #f9f9ff 100%);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            transform: translateY(50px);
-            opacity: 0;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .feature-card.animate {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--gradient);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            color: white;
+        .sub-heading {
             font-size: 1.8rem;
-            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
-        }
-
-        .feature-title {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .feature-desc {
-            color: #666;
-            line-height: 1.7;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 6rem 5%;
-            background: white;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .testimonial-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .testimonial-text {
-            font-style: italic;
             color: #555;
-            margin-bottom: 1.5rem;
-            position: relative;
+            margin-top: 0.5rem;
+            font-weight: 400;
         }
 
-        .testimonial-text::before {
-            content: '"';
-            font-size: 4rem;
-            color: rgba(67, 97, 238, 0.1);
-            position: absolute;
-            top: -20px;
-            left: -10px;
-            z-index: 0;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .author-info h4 {
-            color: var(--dark);
-            margin-bottom: 0.2rem;
-        }
-
-        .author-info p {
-            color: #777;
-            font-size: 0.9rem;
-        }
-
-        /* Chat Preview */
-        .chat-preview {
-            padding: 6rem 5%;
-            text-align: center;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-        }
-
-        .chat-container {
-            max-width: 800px;
-            margin: 3rem auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            transform: scale(0.95);
-            transition: var(--transition);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .chat-container:hover {
-            transform: scale(1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .chat-header {
-            background: var(--gradient);
-            padding: 1.2rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            justify-content: center;
-            font-weight: 500;
-        }
-
-        .chat-avatar {
-            width: 36px;
-            height: 36px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-weight: bold;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .chat-messages {
-            padding: 2rem;
-            height: 350px;
-            overflow-y: auto;
+        /* Chat Container */
+        .chats-container {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1.5rem;
+            padding: 0 2rem;
+            max-height: 60vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
         }
 
+        /* Message Styles */
         .message {
-            max-width: 70%;
-            padding: 1rem 1.5rem;
-            border-radius: 18px;
-            animation: messageIn 0.5s ease forwards;
+            display: flex;
+            gap: 1rem;
+            max-width: 80%;
             opacity: 0;
-            line-height: 1.5;
-            position: relative;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
         }
 
         .user-message {
             align-self: flex-end;
-            background: var(--primary);
-            color: white;
-            border-bottom-right-radius: 5px;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.2);
+            flex-direction: row-reverse;
+            animation-delay: 0.1s;
         }
 
         .bot-message {
             align-self: flex-start;
-            background: #f0f0f0;
-            color: #333;
-            border-bottom-left-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            animation-delay: 0.2s;
         }
 
-        .typing-indicator {
-            display: flex;
-            gap: 8px;
-            align-self: flex-start;
-            background: #f0f0f0;
+        .message-text {
             padding: 1rem 1.5rem;
-            border-radius: 18px;
-            width: fit-content;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 1.5rem;
+            line-height: 1.5;
+            box-shadow: var(--shadow);
+            position: relative;
+            word-wrap: break-word;
         }
 
-        .typing-dot {
-            width: 10px;
-            height: 10px;
-            background: #aaa;
-            border-radius: 50%;
-            animation: typing 1.4s infinite ease-in-out;
-        }
-
-        .typing-dot:nth-child(1) { animation-delay: 0s; }
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 6rem 5%;
-            text-align: center;
-            background: var(--gradient);
+        .user-message .message-text {
+            background-color: var(--primary-color);
             color: white;
+            border-bottom-right-radius: 0.3rem;
         }
 
-        .cta-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+        .bot-message .message-text {
+            background-color: var(--bot-bubble);
+            color: #333;
+            border-bottom-left-radius: 0.3rem;
         }
 
-        .cta-text {
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-
-        .cta-secondary {
-            background: rgba(255,255,255,0.1);
-            border: 2px solid white;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 5rem 5% 3rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-
-        .footer-about p {
-            color: #aaa;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-link {
+        /* Avatar - Pure CSS */
+        .avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.1);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar::before {
+            content: "AI";
+            font-size: 0.9rem;
+        }
+
+        .avatar::after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, 
+                          rgba(255,255,255,0.3) 0%, 
+                          rgba(255,255,255,0) 50%);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        /* Input Area */
+        .prompt-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1.5rem;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .promt-form {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto;
+            gap: 0.8rem;
+        }
+
+        .promt-input {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border-radius: 2rem;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            outline: none;
             transition: var(--transition);
         }
 
-        .social-link:hover {
-            background: var(--accent);
-            transform: translateY(-3px);
+        .promt-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(29, 126, 253, 0.2);
         }
 
-        .footer-links h3 {
+        .promt-button {
+            padding: 0.8rem 1.8rem;
+            border-radius: 2rem;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             color: white;
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-link {
-            display: block;
-            color: #aaa;
-            margin-bottom: 0.8rem;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-link:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .footer-newsletter input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: 50px;
             border: none;
-            margin-bottom: 1rem;
-            background: rgba(255,255,255,0.1);
-            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
         }
 
-        .footer-newsletter input::placeholder {
-            color: #ccc;
+        .promt-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .copyright {
-            text-align: center;
-            color: #777;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .promt-button:active {
+            transform: translateY(0);
         }
 
         /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -584,33 +214,10 @@
             }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-        }
-
-        @keyframes messageIn {
+        @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -618,437 +225,199 @@
             }
         }
 
-        @keyframes typing {
-            0%, 60%, 100% {
-                transform: translateY(0);
-                opacity: 0.6;
-            }
-            30% {
-                transform: translateY(-5px);
-                opacity: 1;
-            }
+        @keyframes shine {
+            0% { transform: rotate(45deg) translate(-30px, -30px); }
+            100% { transform: rotate(45deg) translate(30px, 30px); }
         }
 
-        /* Chat Page Transition */
-        .chat-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: translateY(100%);
-            transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+        /* Typing indicator */
+        .typing {
+            display: inline-block;
         }
 
-        .chat-page.active {
-            transform: translateY(0);
+        .typing-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #888;
+            margin-right: 4px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 6rem;
-                height: auto;
-                padding-bottom: 4rem;
-            }
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
-            .hero-content {
-                max-width: 100%;
-                margin-bottom: 3rem;
-            }
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
 
-            .hero-image {
-                position: relative;
-                width: 100%;
-                right: auto;
-                margin-top: 2rem;
-            }
+        /* Scrollbar styling */
+        .chats-container::-webkit-scrollbar {
+            width: 8px;
+        }
 
-            .hero-buttons {
-                justify-content: center;
-                flex-direction: column;
-                gap: 1rem;
-            }
+        .chats-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
 
-            .nav-links {
-                display: none;
-            }
-
-            .stats {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                gap: 1rem;
-            }
+        .chats-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary-color), var(--secondary-color));
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">
-            <div class="logo-icon">AI</div>
-            <span>Genius</span>
-        </div>
-        <div class="nav-links">
-            <a href="#features" class="nav-link">Features</a>
-            <a href="#how-it-works" class="nav-link">How It Works</a>
-            <a href="#testimonials" class="nav-link">Testimonials</a>
-            <a href="#pricing" class="nav-link">Pricing</a>
-        </div>
-        <button class="cta-button" id="openChat">Try For Free</button>
-    </nav>
+    <div class="container">
+        <header class="app-header">
+            <h1 class="heading">Hello, there</h1>
+            <h1 class="sub-heading">How can I help you today?</h1>
+        </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Revolutionize Your Productivity with AI</h1>
-            <p class="hero-subtitle">Genius AI is your 24/7 intelligent assistant that helps with research, content creation, coding, and more. Experience human-like conversations powered by cutting-edge artificial intelligence.</p>
-            <div class="hero-buttons">
-                <button class="cta-button" id="openChat2">Start Chatting Now</button>
-                <button class="cta-button secondary-button">See Live Demo</button>
+        <div class="chats-container">
+            <div class="message user-message">
+                <div class="message-text">Hi there! How are you?</div>
+            </div>
+            <div class="message bot-message">
+                <div class="avatar"></div>
+                <div class="message-text">I'm doing well, thank you! How can I assist you today?</div>
             </div>
         </div>
-        <img src="hi.jpg" alt="AI Assistant" class="hero-image">
-    </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stat-item" style="animation-delay: 0.2s;">
-            <div class="stat-number">10M+</div>
-            <div class="stat-label">Daily Conversations</div>
-        </div>
-        <div class="stat-item" style="animation-delay: 0.4s;">
-            <div class="stat-number">95%</div>
-            <div class="stat-label">Accuracy Rate</div>
-        </div>
-        <div class="stat-item" style="animation-delay: 0.6s;">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Availability</div>
-        </div>
-        <div class="stat-item" style="animation-delay: 0.8s;">
-            <div class="stat-number">50+</div>
-            <div class="stat-label">Languages Supported</div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <h2 class="section-title">Powerful Features</h2>
-        <p class="section-subtitle">Genius AI comes packed with everything you need to enhance your productivity and creativity</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">💡</div>
-                <h3 class="feature-title">Context-Aware Conversations</h3>
-                <p class="feature-desc">Our AI remembers previous messages in the conversation, allowing for more natural and coherent discussions that flow like human dialogue.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Lightning Fast Responses</h3>
-                <p class="feature-desc">Get accurate answers in seconds with our optimized AI models that deliver speedy responses without compromising quality.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3 class="feature-title">Enterprise-Grade Security</h3>
-                <p class="feature-desc">Your data is protected with end-to-end encryption and strict privacy controls that meet industry compliance standards.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌐</div>
-                <h3 class="feature-title">Multilingual Support</h3>
-                <p class="feature-desc">Communicate in over 50 languages with native-level fluency and cultural understanding for global applications.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🧠</div>
-                <h3 class="feature-title">Continuous Learning</h3>
-                <p class="feature-desc">Our AI constantly improves through machine learning algorithms that adapt to your preferences and usage patterns.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔄</div>
-                <h3 class="feature-title">API Integration</h3>
-                <p class="feature-desc">Easily integrate Genius AI into your existing applications and workflows with our developer-friendly API.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="features" id="how-it-works" style="background: white;">
-        <h2 class="section-title">How Genius AI Works</h2>
-        <p class="section-subtitle">Getting started with the most advanced AI assistant is simple and straightforward</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">1</div>
-                <h3 class="feature-title">Sign Up in Seconds</h3>
-                <p class="feature-desc">Create your free account with just an email address or social login. No credit card required to start.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">2</div>
-                <h3 class="feature-title">Choose Your Plan</h3>
-                <p class="feature-desc">Select from our flexible plans that scale with your needs, from casual use to enterprise solutions.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">3</div>
-                <h3 class="feature-title">Start Conversing</h3>
-                <p class="feature-desc">Begin chatting immediately through our web interface or mobile apps available on all platforms.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <h2 class="section-title">What Our Users Say</h2>
-        <p class="section-subtitle">Join thousands of satisfied users who transformed their workflow with Genius AI</p>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-text">
-                    Genius AI has become an indispensable tool for our content team. It helps us generate ideas, draft outlines, and even polish final copy - saving us hours every week.
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">S</div>
-                    <div class="author-info">
-                        <h4>Sarah Johnson</h4>
-                        <p>Content Director, TechMedia</p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-text">
-                    As a solo developer, Genius AI acts like having an entire engineering team at my fingertips. It helps debug code, explains complex concepts, and suggests optimizations.
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">M</div>
-                    <div class="author-info">
-                        <h4>Michael Chen</h4>
-                        <p>Founder, AppVenture</p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-text">
-                    The multilingual capabilities have been game-changing for our global customer support. Response times are down 40% while satisfaction scores have never been higher.
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">A</div>
-                    <div class="author-info">
-                        <h4>Amira Hassan</h4>
-                        <p>Support Manager, GlobalSoft</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Chat Preview -->
-    <section class="chat-preview" id="preview">
-        <h2 class="section-title">Experience the Power of AI Conversation</h2>
-        <p class="section-subtitle">See how Genius AI can assist you with various tasks through natural dialogue</p>
-        <div class="chat-container">
-            <div class="chat-header">
-                <div class="chat-avatar">AI</div>
-                <span>Genius AI Assistant</span>
-            </div>
-            <div class="chat-messages">
-                <div class="message bot-message" style="animation-delay: 0.2s;">Hello! I'm your Genius AI assistant. I can help with research, content creation, coding, and much more. What would you like to explore today?</div>
-                <div class="message user-message" style="animation-delay: 0.4s;">Can you help me draft a business proposal for a new eco-friendly product line?</div>
-                <div class="message bot-message" style="animation-delay: 0.6s;">Absolutely! Here's a comprehensive outline for your eco-friendly product proposal:</div>
-                <div class="message bot-message" style="animation-delay: 0.8s;">
-                    1. Executive Summary<br>
-                    2. Market Opportunity<br>
-                    3. Product Details<br>
-                    4. Sustainability Benefits<br>
-                    5. Financial Projections<br>
-                    6. Implementation Timeline<br>
-                    Would you like me to elaborate on any section?
-                </div>
-                <div class="typing-indicator">
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section class="features" id="pricing" style="background: white;">
-        <h2 class="section-title">Simple, Transparent Pricing</h2>
-        <p class="section-subtitle">Choose the plan that fits your needs</p>
-        <div class="features-grid">
-            <div class="feature-card" style="text-align: center;">
-                <div class="feature-icon">👶</div>
-                <h3 class="feature-title">Starter</h3>
-                <p class="feature-desc" style="font-size: 2.5rem; color: var(--primary); font-weight: 700;">Free</p>
-                <p style="color: #666; margin: 1.5rem 0;">Perfect for trying out basic features</p>
-                <ul style="text-align: left; color: #666; margin-bottom: 2rem; padding-left: 1.5rem;">
-                    <li style="margin-bottom: 0.5rem;">20 messages/day</li>
-                    <li style="margin-bottom: 0.5rem;">Basic AI model</li>
-                    <li style="margin-bottom: 0.5rem;">Email support</li>
-                </ul>
-                <button class="cta-button" style="width: 100%;">Get Started</button>
-            </div>
-            <div class="feature-card" style="text-align: center; border: 2px solid var(--primary);">
-                <div class="feature-icon">🚀</div>
-                <h3 class="feature-title">Pro</h3>
-                <p class="feature-desc" style="font-size: 2.5rem; color: var(--primary); font-weight: 700;">$19<span style="font-size: 1rem;">/month</span></p>
-                <p style="color: #666; margin: 1.5rem 0;">For professionals and small teams</p>
-                <ul style="text-align: left; color: #666; margin-bottom: 2rem; padding-left: 1.5rem;">
-                    <li style="margin-bottom: 0.5rem;">500 messages/month</li>
-                    <li style="margin-bottom: 0.5rem;">Advanced AI model</li>
-                    <li style="margin-bottom: 0.5rem;">Priority support</li>
-                    <li style="margin-bottom: 0.5rem;">API access</li>
-                </ul>
-                <button class="cta-button" style="width: 100%; background: var(--primary);">Popular Choice</button>
-            </div>
-            <div class="feature-card" style="text-align: center;">
-                <div class="feature-icon">🏢</div>
-                <h3 class="feature-title">Enterprise</h3>
-                <p class="feature-desc" style="font-size: 2.5rem; color: var(--primary); font-weight: 700;">Custom</p>
-                <p style="color: #666; margin: 1.5rem 0;">For large organizations</p>
-                <ul style="text-align: left; color: #666; margin-bottom: 2rem; padding-left: 1.5rem;">
-                    <li style="margin-bottom: 0.5rem;">Unlimited messages</li>
-                    <li style="margin-bottom: 0.5rem;">Premium AI model</li>
-                    <li style="margin-bottom: 0.5rem;">24/7 dedicated support</li>
-                    <li style="margin-bottom: 0.5rem;">Custom integrations</li>
-                    <li style="margin-bottom: 0.5rem;">Team management</li>
-                </ul>
-                <button class="cta-button secondary-button" style="width: 100%;">Contact Sales</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2 class="cta-title">Ready to Transform Your Workflow?</h2>
-        <p class="cta-text">Join thousands of professionals and businesses who are already experiencing the power of AI-assisted productivity.</p>
-        <div class="cta-buttons">
-            <button class="cta-button" id="openChat3">Start Free Trial</button>
-            <button class="cta-button cta-secondary">Schedule Demo</button>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-about">
-                <div class="footer-logo">Genius</div>
-                <p>The most advanced AI assistant for professionals and businesses. Harness the power of artificial intelligence to enhance your productivity.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link">📱</a>
-                    <a href="#" class="social-link">🐦</a>
-                    <a href="#" class="social-link">💼</a>
-                    <a href="#" class="social-link">📘</a>
-                </div>
-            </div>
-            <div class="footer-links">
-                <h3>Product</h3>
-                <a href="#" class="footer-link">Features</a>
-                <a href="#" class="footer-link">Pricing</a>
-                <a href="#" class="footer-link">API</a>
-                <a href="#" class="footer-link">Integrations</a>
-                <a href="#" class="footer-link">Changelog</a>
-            </div>
-            <div class="footer-links">
-                <h3>Resources</h3>
-                <a href="#" class="footer-link">Documentation</a>
-                <a href="#" class="footer-link">Tutorials</a>
-                <a href="#" class="footer-link">Blog</a>
-                <a href="#" class="footer-link">Community</a>
-                <a href="#" class="footer-link">Webinars</a>
-            </div>
-            <div class="footer-links">
-                <h3>Company</h3>
-                <a href="#" class="footer-link">About Us</a>
-                <a href="#" class="footer-link">Careers</a>
-                <a href="#" class="footer-link">Press</a>
-                <a href="#" class="footer-link">Contact</a>
-                <a href="#" class="footer-link">Partners</a>
-            </div>
-            <div class="footer-newsletter">
-                <h3>Stay Updated</h3>
-                <input type="email" placeholder="Your email address">
-                <button class="cta-button" style="width: 100%;">Subscribe</button>
-            </div>
-        </div>
-        <div class="copyright">
-            © 2023 Genius AI. All rights reserved. | <a href="#" style="color: #777;">Privacy Policy</a> | <a href="#" style="color: #777;">Terms of Service</a>
-        </div>
-    </footer>
-
-    <!-- Chat Page (hidden initially) -->
-    <div class="chat-page" id="chatPage">
-        <div style="text-align: center; padding: 2rem;">
-            <h2 style="font-size: 2rem; margin-bottom: 1rem; background: linear-gradient(to right, #4361ee, #3a0ca3); -webkit-background-clip: text; background-clip: text; color: transparent;">Loading Chat Interface...</h2>
-            <div style="display: inline-block;">
-                <div style="width: 10px; height: 10px; background: #4361ee; border-radius: 50%; display: inline-block; margin: 0 5px; animation: typing 1.4s infinite ease-in-out;"></div>
-                <div style="width: 10px; height: 10px; background: #4361ee; border-radius: 50%; display: inline-block; margin: 0 5px; animation: typing 1.4s infinite ease-in-out; animation-delay: 0.2s;"></div>
-                <div style="width: 10px; height: 10px; background: #4361ee; border-radius: 50%; display: inline-block; margin: 0 5px; animation: typing 1.4s infinite ease-in-out; animation-delay: 0.4s;"></div>
+        <div class="prompt-container">
+            <div class="promt-wrapper">
+                <form action="#" class="promt-form">
+                    <input type="text" class="promt-input" placeholder="Type your message..." required>
+                    <button type="submit" class="promt-button">Send</button>
+                </form>
             </div>
         </div>
     </div>
 
     <script>
-        // Animate elements on scroll
-        const animateElements = document.querySelectorAll('.feature-card, .stat-item');
-        
-        const animateOnScroll = () => {
-            animateElements.forEach((el, index) => {
-                const elPosition = el.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-                
-                if (elPosition < screenPosition) {
-                    setTimeout(() => {
-                        el.classList.add('animate');
-                    }, index * 200);
-                }
-            });
+        const chatsContainer = document.querySelector(".chats-container");
+        const promtForm = document.querySelector(".promt-form");
+        const promtInput = promtForm.querySelector(".promt-input");
+
+        const GOOGLE_API_KEY = 'AIzaSyDudnt6l_RVPTuwnnj0VqrtLq8WVDewrMY';
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GOOGLE_API_KEY}`;
+
+        let userMessage = "";
+        const chatHistory = [];
+
+        // Create message element with animation
+        const createMsgElement = (content, isUser) => {
+            const div = document.createElement("div");
+            div.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            
+            if (!isUser) {
+                const avatar = document.createElement("div");
+                avatar.className = "avatar";
+                div.appendChild(avatar);
+            }
+            
+            const textDiv = document.createElement("div");
+            textDiv.className = "message-text";
+            div.appendChild(textDiv);
+            
+            // Add typing indicator for bot messages
+            if (!isUser) {
+                const typing = document.createElement("div");
+                typing.className = "typing";
+                typing.innerHTML = `
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                `;
+                textDiv.appendChild(typing);
+            } else {
+                textDiv.textContent = content;
+            }
+            
+            return div;
         };
 
-        window.addEventListener('scroll', animateOnScroll);
-        animateOnScroll(); // Run once on load
+        const generateResponse = async (botMsgDiv) => {
+            const textElement = botMsgDiv.querySelector(".message-text");
 
-        // Chat page transition
-        const openChatButtons = document.querySelectorAll('#openChat, #openChat2, #openChat3');
-        const chatPage = document.getElementById('chatPage');
-
-        openChatButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                chatPage.classList.add('active');
-                
-                // After animation completes, redirect to chat page
-                setTimeout(() => {
-                    window.location.href = "chat.html"; // Your chat page URL
-                }, 800);
+            chatHistory.push({
+                role: "user",
+                parts: [{text: userMessage}]
             });
-        });
 
-        // Animate chat messages in preview
-        const messages = document.querySelectorAll('.message');
-        messages.forEach((msg, i) => {
-            msg.style.animationDelay = `${0.2 + (i * 0.2)}s`;
-        });
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({contents: chatHistory})
+                });
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                document.querySelector('nav').style.boxShadow = '0 5px 30px rgba(0,0,0,0.1)';
-            } else {
-                document.querySelector('nav').style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error.message);
+                
+                // Simulate typing effect
+                const responseText = data.candidates[0].content.parts[0].text.replace(/<[^>]*>/g, "$1").trim();
+                const words = responseText.split(' ');
+                let i = 0;
+                
+                // Remove typing indicator
+                textElement.innerHTML = '';
+                
+                // Type out the response word by word
+                const typeWriter = setInterval(() => {
+                    if (i < words.length) {
+                        textElement.textContent += (i > 0 ? ' ' : '') + words[i];
+                        i++;
+                        // Scroll to bottom
+                        chatsContainer.scrollTop = chatsContainer.scrollHeight;
+                    } else {
+                        clearInterval(typeWriter);
+                    }
+                }, 100);
+
+            } catch (error) {
+                console.log(error);
+                textElement.innerHTML = '';
+                textElement.textContent = "Sorry, I encountered an error. Please try again.";
             }
-        });
+        };
 
-        // Animate stats
-        const statItems = document.querySelectorAll('.stat-item');
-        statItems.forEach((item, i) => {
-            item.style.animationDelay = `${0.2 + (i * 0.2)}s`;
+        const handleFormSubmit = (e) => {
+            e.preventDefault();
+            userMessage = promtInput.value.trim();
+            if (!userMessage) return;
+
+            promtInput.value = "";
+
+            // Add user message
+            const userMsgDiv = createMsgElement(userMessage, true);
+            chatsContainer.appendChild(userMsgDiv);
+            
+            // Scroll to bottom
+            chatsContainer.scrollTop = chatsContainer.scrollHeight;
+
+            // Add bot message after a short delay
+            setTimeout(() => {
+                const botMsgDiv = createMsgElement("", false);
+                chatsContainer.appendChild(botMsgDiv);
+                chatsContainer.scrollTop = chatsContainer.scrollHeight;
+                generateResponse(botMsgDiv);
+            }, 600);
+        };
+
+        promtForm.addEventListener("submit", handleFormSubmit);
+        
+        // Allow sending with Enter key
+        promtInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                promtForm.dispatchEvent(new Event("submit"));
+            }
         });
     </script>
 </body>
